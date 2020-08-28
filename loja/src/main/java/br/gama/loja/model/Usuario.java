@@ -1,11 +1,17 @@
 package br.gama.loja.model;
 
+import java.util.List;
+
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
+
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 @Entity
 @Table(name= "usuario")
@@ -27,6 +33,10 @@ public class Usuario {
 
     @Column(name = "senha", length = 20, nullable = false)
     private String senha;
+
+    @OneToMany(cascade= CascadeType.ALL, mappedBy = "solicitante")
+    @JsonIgnoreProperties("solicitante")
+    private List<Pedido> pedidos;
 
     public int getId() {
         return id;
@@ -67,6 +77,16 @@ public class Usuario {
     public void setSenha(String senha) {
         this.senha = senha;
     }
+
+    public List<Pedido> getPedidos() {
+        return pedidos;
+    }
+
+    public void setPedidos(List<Pedido> pedidos) {
+        this.pedidos = pedidos;
+    }
+
+
 
     
     
